@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial scale=1.0" />
+        <title>D&D DC Calculator</title>
+        <link href="DnDstyles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <h2>Player's Bonus to The Roll</h2>
+        <div class="slidecontainerB">
+            <input type="range" min="-40" max="40" value="0" class="slider" id="bonusRange">
+        </div>
+        <p>Bonus: <span id="demoB"></span></p>
+
+        <h2> Player's Chance of Success</h2>
+        <div class="slidecontainer">
+            <input type="range" min="1" max="100" value="50" class="slider" id="chanceRange">
+        </div>
+        <p><span id="demo"> </span>% Chance of Success</p>
+        
+        <h1>DC: <span id="x"></span></h1>
+
+
+        <script>
+            var slider = document.getElementById("chanceRange");
+            var output = document.getElementById("demo");
+            var sliderB = document.getElementById("bonusRange");
+            var outputBonus = document.getElementById("demoB");
+           
+           
+            var x = document.getElementById("x");
+            output.innerHTML = slider.value;
+
+            outputBonus.innerHTML = sliderB.value;
+
+            sliderB.oninput = function() {
+            outputBonus.innerHTML = this.value;
+
+            x.innerHTML= Math.round(20-(Number(output.innerHTML)/5)+1+Number(outputBonus.innerHTML));
+            }
+
+            slider.oninput = function() {
+            output.innerHTML = this.value;
+
+            x.innerHTML= Math.round(20-(Number(output.innerHTML)/5)+1+Number(outputBonus.innerHTML));
+
+            }
+
+        </script>
+
+</html>
