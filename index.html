@@ -64,7 +64,10 @@
                 if (document.querySelector('input[name="advdis"]:checked').value == "Advantage") {
                     z = Number(output.innerHTML)/100;
                     y = 1-(Math.sqrt(1-z));
-                    x.innerHTML= Math.round(20 -(y*20)+Number(outputBonus.innerHTML)+1);
+                    x.innerHTML= Math.round(20 -(y*20)+Number(outputBonus.innerHTML));
+                    if (x.innerHTML > 20 + outputBonus.innerHTML) {
+                        x.innerHTML = "Sorry, but their chances can't be THAT low. Try giving disadvantage!"
+                    }
                 }
 
                 else if (document.querySelector('input[name="advdis"]:checked').value == "Disadvantage") {
@@ -77,6 +80,12 @@
                     z = Number(output.innerHTML)/100;
                     y = z*20
                     x.innerHTML= Math.round(20-y+1+Number(outputBonus.innerHTML))
+                    if (x.innerHTML > 20 + outputBonus.innerHTML) {
+                        x.innerHTML = "Sorry, but their chances can't be THAT low. Try giving disadvantage!"
+                    }
+                }
+                if (x.innerHTML < 1.6) {
+                    x.innerHTML = x.innerHTML + "? Sorry, but I guess their odds just can't be that high"
                 }
                 
             }
