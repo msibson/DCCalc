@@ -9,7 +9,7 @@
     <body>
         <h2>Player's Bonus to The Roll</h2>
         <div class="slidecontainerB">
-            <input type="range" min="-40" max="40" value="0" class="slider" id="bonusRange">
+            <input type="range" min="-30" max="30" value="0" class="slider" id="bonusRange" ">
         </div>
         <p>Bonus: <span id="demoB"></span></p>
 
@@ -17,19 +17,33 @@
         <div class="slidecontainer">
             <input type="range" min="1" max="100" value="50" class="slider" id="chanceRange">
         </div>
-        <p><span id="demo"> </span>% Chance of Success</p>
+        <h3><span id="demo"> </span>% Chance of Success</h3>
         
+        <form>
+            <input type = "radio" id ="advdis" name="advdis"  value="Advantage" onclick="advFunction()">
+            <label for="html">Advantage</label><br><p></p>
+            <input type = "radio" id ="advdis" name="advdis" value="Disadvantage" onclick="advFunction()">
+            <label for="html">Disadvantage</label><br><p></p>
+            <input type = "radio" id ="advdis" name="advdis" value="Neither" onclick="advFunction()">
+            <label for="html">Neither</label><br><p></p>
+        </form>
+
+
         <h1>DC: <span id="x"></span></h1>
-
-
+        <p></p>
+       
         <script>
             var slider = document.getElementById("chanceRange");
             var output = document.getElementById("demo");
             var sliderB = document.getElementById("bonusRange");
             var outputBonus = document.getElementById("demoB");
-           
-           
+            var Button = "a";
             var x = document.getElementById("x");
+            var y = 1;
+            var z = 1;
+            var choice = "a";
+            i =1;
+            
             output.innerHTML = slider.value;
 
             outputBonus.innerHTML = sliderB.value;
@@ -37,16 +51,35 @@
             sliderB.oninput = function() {
             outputBonus.innerHTML = this.value;
 
-            x.innerHTML= Math.round(20-(Number(output.innerHTML)/5)+1+Number(outputBonus.innerHTML));
+            advFunction();
             }
 
             slider.oninput = function() {
             output.innerHTML = this.value;
-
-            x.innerHTML= Math.round(20-(Number(output.innerHTML)/5)+1+Number(outputBonus.innerHTML));
-
+            advFunction();
             }
+            
+            // Advantage Buttons    
+            function advFunction() {
+                if (document.querySelector('input[name="advdis"]:checked').value == "Advantage") {
+                    z = Number(output.innerHTML)/100;
+                    y = 1-(Math.sqrt(1-z));
+                    x.innerHTML= Math.round(20 -(y*20)+Number(outputBonus.innerHTML)+1);
+                }
 
+                else if (document.querySelector('input[name="advdis"]:checked').value == "Disadvantage") {
+                    z = Number(output.innerHTML)/100;
+                    y = Math.sqrt(z);
+                    y= y*20;
+                    x.innerHTML = Math.round(20-y+1+Number(outputBonus.innerHTML)); 
+                }
+                else {
+                    z = Number(output.innerHTML)/100;
+                    y = z*20
+                    x.innerHTML= Math.round(20-y+1+Number(outputBonus.innerHTML))
+                }
+                
+            }
         </script>
 
 </html>
